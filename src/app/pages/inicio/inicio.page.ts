@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+//import { MenuController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { Componente } from '../../interfaces/interface';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-inicio',
@@ -7,28 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioPage implements OnInit {
 
-	componentes: Componente[] = [
-		{
-			icon: 'american-football',
-			name: 'Action Sheet',
-			redirectTo: '/action-sheet'	
-		},
-		{
-			icon: 'appstore',
-			name: 'Alert',
-			redirectTo: '/alert'	
-		}
-	];
+	componentes: Observable<Componente[]>;
 
-  constructor() { }
+  constructor(private dataService: DataService/*private menuController: MenuController*/) { }
 
   ngOnInit() {
+    this.componentes = this.dataService.getMenuOpts();
   }
 
+/*
+  toggleMenu(){
+  	this.menuController.toggle();
+  }*/
+
 }
 
-interface Componente {
-	icon: string;
-	name: string;
-	redirectTo: string;
-}
+
